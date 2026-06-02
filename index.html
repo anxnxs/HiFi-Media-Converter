@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - HiFi Media Converter</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fbc531 0%, #a29bfe 50%, #74b9ff 100%);
+            --blob-1: #ff007f;
+            --blob-2: #00f5d4;
+            --blob-3: #7b2cbf;
+            --blob-4: #ffee32;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            --accent: #6c5ce7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", sans-serif;
+            background: #0f0c1b;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Liquid Background Elements - Optimized to prevent flickering */
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            background: linear-gradient(145deg, #0d0b21, #1a1636);
+            /* Force layer containment */
+            contain: strict;
+        }
+
+        .liquid-blob {
+            position: absolute;
+            mix-blend-mode: screen;
+            filter: blur(50px); /* Slightly reduced from 60px for smoother cross-browser rendering */
+            opacity: 0.65;
+            animation: float 25s infinite alternate ease-in-out;
+
+            /* CRITICAL FIXES FOR FLICKERING (Hardware Acceleration) */
+            will-change: transform;
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
+
+        /* Static border-radius shapes to prevent continuous geometry recalculation (repaint loops) */
+        .blob1 {
+            width: 500px;
+            height: 500px;
+            background: var(--blob-1);
+            top: -10%;
+            left: -10%;
+            border-radius: 43% 57% 70% 30% / 45% 45% 55% 55%;
+            animation-duration: 22s;
+        }
+
+        .blob2 {
+            width: 600px;
+            height: 600px;
+            background: var(--blob-2);
+            bottom: -20%;
+            right: -10%;
+            border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+            animation-duration: 28s;
+        }
+
+        .blob3 {
+            width: 450px;
+            height: 450px;
+            background: var(--blob-3);
+            top: 40%;
+            left: 50%;
+            border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
+            animation-duration: 24s;
+        }
+
+        .blob4 {
+            width: 350px;
+            height: 350px;
+            background: var(--blob-4);
+            bottom: 30%;
+            left: -5%;
+            border-radius: 35% 65% 55% 45% / 60% 40% 60% 40%;
+            animation-duration: 18s;
+        }
+
+        /* Pure composite-based animation (Only translate, rotate, scale. NO border-radius animation) */
+        @keyframes float {
+            0% {
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate3d(60px, 40px, 0) rotate(180deg) scale(1.08);
+            }
+            100% {
+                transform: translate3d(-30px, 30px, 0) rotate(360deg) scale(0.95);
+            }
+        }
+
+        /* Glassmorphism Main Card */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 850px;
+            background: rgba(255, 255, 255, 0.68);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 32px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            
+            /* Prevent filter leakage artifacts */
+            -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+        }
+
+        /* Header Style */
+        .header {
+            text-align: center;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .logo-area {
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #ff007f, #7b2cbf);
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 12px 24px rgba(255, 0, 127, 0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-area:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .logo-icon {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: bold;
+            font-family: "Courier New", monospace;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #111 30%, #4a00e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .effective-date {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.12);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13pt;
+            font-weight: 600;
+        }
+
+        /* Intro text */
+        .intro-text {
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Sections Style */
+        section {
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        section:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: linear-gradient(to bottom, #ff007f, #7b2cbf);
+            border-radius: 4px;
+            margin-right: 12px;
+        }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #222;
+            margin-top: 16px;
+            margin-bottom: 6px;
+        }
+
+        p, ul {
+            font-size: 10.5pt;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 4px;
+        }
+
+        li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #ff007f;
+            font-size: 10px;
+        }
+
+        /* Highlights & Tags */
+        .highlight-box {
+            background: rgba(0, 245, 212, 0.12);
+            border-left: 4px solid #00f5d4;
+            padding: 12px 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 12px 0;
+            font-weight: 500;
+        }
+
+        /* Footer / Contact */
+        .contact-info {
+            background: linear-gradient(135deg, rgba(123, 44, 191, 0.08), rgba(255, 0, 127, 0.08));
+            border: 1px solid rgba(123, 44, 191, 0.15);
+        }
+
+        .contact-details {
+            margin-top: 10px;
+        }
+
+        .contact-item {
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .contact-item span {
+            color: var(--text-muted);
+            font-size: 10pt;
+        }
+
+        .contact-item a {
+            color: #7b2cbf;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(123, 44, 191, 0.2);
+            transition: border-color 0.2s;
+        }
+
+        .contact-item a:hover {
+            border-color: #7b2cbf;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 9.5pt;
+            color: var(--text-muted);
+            margin-top: 40px;
+        }
+
+        /* Responsive Settings */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 24px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Liquid Glass Background -->
+    <div class="bg-wrapper">
+        <div class="liquid-blob blob1"></div>
+        <div class="liquid-blob blob2"></div>
+        <div class="liquid-blob blob3"></div>
+        <div class="liquid-blob blob4"></div>
+    </div>
+
+    <!-- Main Card Container -->
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-icon">HiFi</div>
+            </div>
+            <h1>Privacy Policy</h1>
+            <div class="effective-date">Effective Date: June 2026</div>
+        </div>
+
+        <!-- Intro -->
+        <p class="intro-text">
+            HiFi Media Converter ("we", "our", or "us") respects your privacy and is committed to protecting your information. This Privacy Policy explains how our application ("App") collects, uses, and protects information when you use HiFi Media Converter.
+        </p>
+
+        <!-- Section 1 -->
+        <section>
+            <h2>1. Information We Collect</h2>
+            
+            <h3>Media Files</h3>
+            <p>HiFi Media Converter allows users to convert audio and video files stored on their devices.</p>
+            <div class="highlight-box">
+                All file processing and conversion operations are performed locally on your device. We do not upload, transmit, store, or access your media files on our servers.
+            </div>
+
+            <h3>Device and Diagnostic Information</h3>
+            <p>To improve application stability and performance, we may collect limited technical information, including:</p>
+            <ul>
+                <li>Device model</li>
+                <li>Operating system version</li>
+                <li>Application version</li>
+                <li>Crash reports</li>
+                <li>Performance and diagnostic data</li>
+            </ul>
+            <p style="margin-top: 8px; font-style: italic; color: var(--text-muted);">This information does not directly identify you.</p>
+
+            <h3>Advertising Data</h3>
+            <p>If advertisements are displayed within the App, our advertising partners may collect certain information, including:</p>
+            <ul>
+                <li>Advertising ID</li>
+                <li>Device identifiers</li>
+                <li>Approximate location information</li>
+                <li>App interaction data</li>
+            </ul>
+            <p style="margin-top: 8px;">This information is used to provide and measure advertisements.</p>
+        </section>
+
+        <!-- Section 2 -->
+        <section>
+            <h2>2. How We Use Information</h2>
+            <p>We use collected information to:</p>
+            <ul>
+                <li>Provide audio and video conversion functionality</li>
+                <li>Maintain and improve App performance</li>
+                <li>Diagnose crashes and technical issues</li>
+                <li>Display advertisements</li>
+                <li>Comply with legal obligations</li>
+            </ul>
+            <div class="highlight-box" style="border-left-color: #ff007f; background: rgba(255,0,127,0.08);">
+                We do not sell your personal information.
+            </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section>
+            <h2>3. Permissions</h2>
+            <p>Depending on your device and Android version, the App may request permissions such as:</p>
+            <h3>Storage or Media Access</h3>
+            <p>Used solely to:</p>
+            <ul>
+                <li>Read audio and video files selected by the user</li>
+                <li>Save converted files to the device</li>
+            </ul>
+            <p style="margin-top: 8px; font-weight: 500;">The App does not access files that you do not choose to process.</p>
+        </section>
+
+        <!-- Section 4 -->
+        <section>
+            <h2>4. Third-Party Services</h2>
+            <p>The App may use third-party services that have their own privacy policies. Examples may include:</p>
+            <ul>
+                <li>Google AdMob</li>
+                <li>Google Play Services</li>
+                <li>Google Firebase (if enabled)</li>
+            </ul>
+            <p style="margin-top: 10px;">Please review the privacy policies of these providers for additional information regarding their data practices.</p>
+        </section>
+
+        <!-- Section 5 -->
+        <section>
+            <h2>5. Data Security</h2>
+            <p>We implement reasonable security measures to protect information processed by the App.</p>
+            <p style="margin-top: 8px;">Because media conversion occurs locally on your device, your files remain under your control and are not transmitted to our servers.</p>
+            <p style="margin-top: 8px; color: var(--text-muted);">However, no method of electronic storage or transmission is completely secure, and we cannot guarantee absolute security.</p>
+        </section>
+
+        <!-- Section 6 -->
+        <section>
+            <h2>6. Children's Privacy</h2>
+            <p>HiFi Media Converter is not directed to children under the age of 13.</p>
+            <p style="margin-top: 8px;">We do not knowingly collect personal information from children. If you believe that a child has provided personal information, please contact us and we will take appropriate action.</p>
+        </section>
+
+        <!-- Section 7 -->
+        <section>
+            <h2>7. Your Rights and Choices</h2>
+            <p>You may:</p>
+            <ul>
+                <li>Revoke App permissions through your device settings</li>
+                <li>Reset your advertising identifier through Android settings</li>
+                <li>Stop all information collection by uninstalling the App</li>
+            </ul>
+        </section>
+
+        <!-- Section 8 -->
+        <section>
+            <h2>8. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time.</p>
+            <p style="margin-top: 8px;">Any changes will be posted on this page, and the updated Effective Date will be revised accordingly.</p>
+            <p style="margin-top: 8px; font-weight: 500;">Continued use of the App after changes become effective constitutes acceptance of the updated Privacy Policy.</p>
+        </section>
+
+        <!-- Section 9 (Contact) -->
+        <section class="contact-info">
+            <h2>9. Contact Us</h2>
+            <p>If you have any questions regarding this Privacy Policy, please contact:</p>
+            <div class="contact-details">
+                <div class="contact-item"><span>Developer:</span> HiFi Media Converter Team</div>
+                <div class="contact-item"><span>Email:</span> <a href="mailto:jacobsonmariette@gmail.com">jacobsonmariette@gmail.com</a></div>
+            </div>
+        </section>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            &copy; 2026 HiFi Media Converter. All rights reserved.
+        </div>
+
+    </div>
+</body>
+</html>
